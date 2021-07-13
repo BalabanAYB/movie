@@ -1,0 +1,61 @@
+.movie {
+   width: 240px;
+   margin: 10px;
+   position: relative;
+}
+
+.coverInner {
+   position: relative;
+   height: 360px;
+}
+
+.movieCover {
+   max-width: 100%;
+}
+
+.coverDarkened {
+   position: absolute;
+   height: 100%;
+   opacity: 0.1;
+   top: 0;
+   left: 0;
+   right: 0;
+   background-color: #000;
+   z-index: 1;
+}
+
+.coverDarkened:hover {
+background-color: grey;
+cursor: pointer;
+}
+
+.info {
+   padding: 10px 0;
+}
+
+.title {
+   font-size: 16px;
+   color: white;
+}
+
+.category {
+   font-size: 14px;
+   color: #ffd80e;
+}
+
+.average {
+position: absolute;
+top: 10px;
+left: 10px;
+border-radius: 50%;
+border: 1px solid green;
+width: 36px;
+height: 36px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #1a191f;
+color: white;
+font-size: 14px;
+z-index: 999;
+}

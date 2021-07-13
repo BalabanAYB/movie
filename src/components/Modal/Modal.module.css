@@ -1,0 +1,92 @@
+.modal {
+   height: 100vh;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: rgba(0, 0, 0, 0.4);
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 99999;
+   opacity: 0;
+   pointer-events: none;
+   transition: 0.5s;
+}
+
+.active {
+   opacity: 1;
+   pointer-events: all;
+}
+
+.modalContent {
+   padding: 20px;
+   border-radius: 12px;
+   background-color: #222;
+   opacity: 0.9;
+   width: 540px;
+   height: 680px;
+}
+
+.movieInfo{
+   display: flex;
+   width: 100%;
+   margin-bottom: 25px;
+}
+
+.movieInfoNone{
+   display: flex;
+   width: 100%;
+   margin-bottom: 15px;
+}
+
+.img {
+   width: 140px;
+   height: 170px;
+   margin-right: 10px;
+   margin-left: 10px;
+}
+
+.imgNone {
+   width: 120px;
+   height: 170px;
+   margin-right: 10px;
+   margin-left: 10px;
+   background-color: #222;
+}
+
+.info {
+   width: 100%;
+   max-width: 375px;
+   display: flex;
+   flex-direction: column;
+   color: white;
+}
+
+.infoNone {
+   width: 100%;
+   max-width: 375px;
+   display: flex;
+   flex-direction: column;
+}
+
+.info h2 {
+   width: 100%;
+   color: white;
+}
+
+.info div {
+   width: 100%;
+   margin-bottom: 10px;
+   word-wrap: break-word;
+   color:white;
+}
+
+.info div span {
+   font-weight: bold;
+   color:white;
+}
+
+.description{
+   color: white;
+}
