@@ -9,9 +9,7 @@ export const setModal = (modal) => ({ type: SET_MODAL, modal })
 export const getMovie = (currentPage, movie) => async (dispatch) => {
    if (movie.length <= (20 * currentPage)){
    let response = await movieAPI.getMovie(currentPage)
-   dispatch(setMovie(response.data.films, response.data.pagesCoun))
-   /*dispatch(setCurrentPage(currentPage + 1))
-   dispatch(setPageCount(data.data.pagesCount))*/
+   dispatch(setMovie(response.data.films, response.data.pagesCount))
    }
 }
 

@@ -7,14 +7,13 @@ import Modal from '../Modal/Modal'
 
 class Content extends React.Component {
 
-constructor(props) {
-super(props);
-this.state = {
-  active: false,
-  getMovie: true,
-  isLoad: false,
-}
-}
+state = {
+   active: false,
+   getMovie: true,
+   isLoad: false,
+   totalCount: this.props.totalCount
+   }
+
 
 componentDidMount() {
    document.addEventListener('scroll', this.scrollHandler)
@@ -35,16 +34,10 @@ componentDidMount() {
 
  getMovie () {
                if (this.state.getMovie) {
-       this.setState((state) => {
-          return {isLoad: true}
-          })
+       this.setState({isLoad: true})
          this.props.getMovie(this.props.currentPage, this.props.movie)
-            this.setState((state) => {
-            return {getMovie: true}
-            })
-            this.setState((state) => {
-             return {isLoad: false}
-             })
+            this.setState({getMovie: false})
+            this.setState({isLoad: false})
       }
            }
 
@@ -55,11 +48,10 @@ setActive = (bool) => {
 }
 
 scrollHandler = (e) => {
+   console.log(this.props)
    debugger
    if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && this.props.currentPage < this.props.totalCount && !this.state.isLoad){
-      this.setState((state) => { 
-         return {getMovie: true}
-      })
+      this.setState({getMovie: true})
    }
 }
 
@@ -84,8 +76,8 @@ this.list()
 const mapStateToProps = (state) => ({
    movie:state.movie.movie,
    modal:state.movie.modal,
+   totalCount: state.movie.totalCount,
    currentPage: state.movie.currentPage,
-   totalCount: state.movie.totalCount
 })
 
 export default connect(mapStateToProps, {getMovie, getMovieModal, setModal}) (Content)
