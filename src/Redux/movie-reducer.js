@@ -6,11 +6,9 @@ const SET_MODAL = 'SET_MODAL'
 export const setMovie = (movie, count) => ({ type: SET_MOVIE, movie, count })
 export const setModal = (modal) => ({ type: SET_MODAL, modal })
 
-export const getMovie = (currentPage, movie) => async (dispatch) => {
-   if (movie.length <= (20 * currentPage)){
+export const getMovie = (currentPage) => async (dispatch) => {
    let response = await movieAPI.getMovie(currentPage)
    dispatch(setMovie(response.data.films, response.data.pagesCount))
-   }
 }
 
 export const getMovieModal = (filmId) => async (dispatch) => {
