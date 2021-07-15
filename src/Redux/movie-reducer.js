@@ -11,18 +11,19 @@ export const setFetching = (fetch) => ({ type: SET_FETCHING, fetch })
 export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setPageCount = (count) => ({ type: SET_PAGES_COUNT, count })
 
-export const getMovie = (currentPage) => async (dispatch) => {
+export const getMovie = (currentPage, movie) => async (dispatch) => {
+   if (movie.length <= (20 * currentPage)){
    let data = await movieAPI.getMovie(currentPage)
    dispatch(setMovie(data.data.films))
    dispatch(setCurrentPage(currentPage + 1))
    dispatch(setPageCount(data.data.pagesCount))
+   }
 }
 
 export const getMovieModal = (filmId) => async (dispatch) => {
    let data = await movieAPI.getMovieModal(filmId)
    dispatch(setModal(null))
    dispatch(setModal(data.data.data))
-   console.log(data.data.data)
   
 }
 
@@ -33,7 +34,6 @@ let initialState = {
    modal: null,
    totalCount: null,
    currentPage: 1,
-   fetching: true,
 }
 
 const movieReducer = (state = initialState, action) => {
@@ -41,7 +41,8 @@ const movieReducer = (state = initialState, action) => {
       case SET_MOVIE: {
          return {
             ...state,
-            movie: [...state.movie, ...action.movie]
+            movie: [...new Set([...state.movie, ...action.movie])]
+            
          }
       }
       case SET_MODAL: {

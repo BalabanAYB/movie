@@ -2,7 +2,6 @@ import React from 'react'
 import style from './Modal.module.css'
 
 const Modal = (props) => {
-   console.log(props)
    return <>
    {props.nameRu 
    ?<div onClick={() => {

@@ -11,6 +11,8 @@
 
 .movieCover {
    max-width: 100%;
+   height: 360px;
+   width: 240px;
 }
 
 .coverDarkened {
