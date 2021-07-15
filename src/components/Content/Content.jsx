@@ -1,59 +1,91 @@
 import React from 'react'
 import style from './Content.module.css'
 import Movie from './Movies/Movie'
-import {getMovie, getMovieModal, setFetching, setCurrentPage, setModal} from '../../Redux/movie-reducer'
+import {getMovie, getMovieModal, setModal} from '../../Redux/movie-reducer'
 import {connect} from 'react-redux'
 import Modal from '../Modal/Modal'
 
-const Content = (props) => {
+class Content extends React.Component {
 
-   const [movie, setMovie] = React.useState(props.movie)
-   const [active, setActive] = React.useState(false)
-   const [getMovie, setGetMovie] = React.useState(false)
-   const [isLoad, setIsLoad] = React.useState(false)
+constructor(props) {
+super(props);
+this.state = {
+  active: false,
+  getMovie: true,
+  isLoad: false,
+}
+}
 
-   React.useEffect(() => {
-      if (getMovie || props.movie.length === 0) {
-       setIsLoad(true)
-         props.getMovie(props.currentPage, props.movie, () => {
-            setGetMovie(false)
-            setIsLoad(false)
-         })
+componentDidMount() {
+   document.addEventListener('scroll', this.scrollHandler)
+   this.getMovie()
+}
+
+ componentDidUpdate(prevProps, prevState) {
+    if(prevState.getMovie !== this.state.getMovie) {
+       if (this.state.getMovie) {
+     this.getMovie()
+       }
+    }
+ }
+
+ componentWillUnmount(){
+    document.removeEventListener('scroll', this.scrollHandler)
+ }
+
+ getMovie () {
+               if (this.state.getMovie) {
+       this.setState((state) => {
+          return {isLoad: true}
+          })
+         this.props.getMovie(this.props.currentPage, this.props.movie)
+            this.setState((state) => {
+            return {getMovie: true}
+            })
+            this.setState((state) => {
+             return {isLoad: false}
+             })
       }
-}, [isLoad, active, getMovie])
+           }
 
-   React.useEffect(() => {
-document.addEventListener('scroll', scrollHandler)
-return () => document.removeEventListener('scroll', scrollHandler)
-}, [props.totalCount])
 
-const scrollHandler = (e) => {
-   if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && props.currentPage < props.totalCount && !isLoad){
-      setGetMovie(true)
+
+setActive = (bool) => {
+    this.setState({active: bool})
+}
+
+scrollHandler = (e) => {
+   debugger
+   if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && this.props.currentPage < this.props.totalCount && !this.state.isLoad){
+      this.setState((state) => { 
+         return {getMovie: true}
+      })
    }
 }
 
-let list = props.movie.map(move => {
-  return <Movie getMovieModal={props.getMovieModal} filmId={move.filmId} active={active} setActive={setActive} key={move.filmId} name={move.nameRu} rating={move.rating} genres={move.genres} posterUrl={move.posterUrl}/>
-})
+list = () => {
+ return (this.props.movie.map(move => {
+  return <Movie getMovieModal={this.props.getMovieModal} filmId={move.filmId} active={this.active} setActive={this.setActive} key={move.filmId} name={move.nameRu} rating={move.rating} genres={move.genres} posterUrl={move.posterUrl}/>
+}))
+}
 
-
+render() {
    return <div className={style.content}>
 <div className={style.container}>
-   <Modal {...props.modal} setModal={props.setModal} active={active} setActive={setActive}/>
+  {this.active ? <Modal {...this.props.modal} setModal={this.props.setModal} active={this.active} setActive={this.setActive}/> : null} 
 {
-list
+this.list()
 }
 </div>
    </div>
+}
 }
 
 const mapStateToProps = (state) => ({
    movie:state.movie.movie,
    modal:state.movie.modal,
    currentPage: state.movie.currentPage,
-   fetching: state.movie.fetching,
    totalCount: state.movie.totalCount
 })
 
-export default connect(mapStateToProps, {getMovie, getMovieModal, setFetching, setCurrentPage, setModal}) ( Content)
+export default connect(mapStateToProps, {getMovie, getMovieModal, setModal}) (Content)
