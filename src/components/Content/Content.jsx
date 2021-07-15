@@ -9,15 +9,18 @@ const Content = (props) => {
 
    const [movie, setMovie] = React.useState(props.movie)
    const [active, setActive] = React.useState(false)
-   const [isLoad, setIsLoad] = React.useState(true)
+   const [getMovie, setGetMovie] = React.useState(false)
+   const [isLoad, setIsLoad] = React.useState(false)
 
    React.useEffect(() => {
-      if (isLoad) {
-       setIsLoad(false)
-         props.getMovie(props.currentPage, props.movie)
+      if (getMovie || props.movie.length === 0) {
+       setIsLoad(true)
+         props.getMovie(props.currentPage, props.movie, () => {
+            setGetMovie(false)
+            setIsLoad(false)
+         })
       }
-
-}, [isLoad, active])
+}, [isLoad, active, getMovie])
 
    React.useEffect(() => {
 document.addEventListener('scroll', scrollHandler)
@@ -25,8 +28,8 @@ return () => document.removeEventListener('scroll', scrollHandler)
 }, [props.totalCount])
 
 const scrollHandler = (e) => {
-   if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && props.currentPage < props.totalCount){
-      setIsLoad(true)
+   if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && props.currentPage < props.totalCount && !isLoad){
+      setGetMovie(true)
    }
 }
 
