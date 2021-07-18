@@ -143,9 +143,40 @@ iframe {
     width: 100%;
   }
 
+  .movieInfo {
+     margin-bottom: 5px;
+  }
+
+  .description {
+     min-height: 130px;
+   overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 6;
+	-webkit-box-orient: vertical;
+  }
+
+  .img {
+     height: 160px;
+  }
+
+  .info h2 {
+   font-size: 20px;
+ }
+
+ .info div span {
+   font-weight: normal;
+   font-size: 15px;
+   overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+ }
+
   .delete {
     top: 10px;
-    left: 10px;
+    right: 10px;
     display: block;
   }
 
