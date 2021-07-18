@@ -1,13 +1,21 @@
 .content {
-   position: relative;
-   height: auto;
+  position: relative;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .container {
-   max-width: 1200px;
-   height: 100%;
-   margin: 0 auto;
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-around;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.error {
+  font-size: 34px;
+  color: white;
 }

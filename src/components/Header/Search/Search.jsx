@@ -1,13 +1,20 @@
-import React from 'react'
-import style from './Search.module.css'
+import React from "react";
+import style from "./Search.module.css";
+import { connect } from "react-redux";
+import { search } from "../../../Redux/movie-reducer";
 
 const Search = (props) => {
-   return <form className={style.search}>
-      <input
-         type="text"
-         placeholder='search...'
-      />
-   </form>
-}
+  const searchMovie = (e) => {
+    props.search(e.target.value);
+  };
 
-export default Search
+  return (
+    <form className={style.search}>
+      <input onChange={searchMovie} type="text" placeholder="Поиск..." />
+    </form>
+  );
+};
+
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { search })(Search);

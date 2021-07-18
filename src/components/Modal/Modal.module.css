@@ -1,92 +1,168 @@
 .modal {
-   height: 100vh;
-   width: 100vw;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: rgba(0, 0, 0, 0.4);
-   position: fixed;
-   top: 0;
-   left: 0;
-   z-index: 99999;
-   opacity: 0;
-   pointer-events: none;
-   transition: 0.5s;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.modal:hover {
+  cursor: pointer;
+}
+
+.delete {
+  z-index: 999999999;
+  display: block;
+  position: absolute;
+  right: 40px;
+  top: 20px;
+  color: white;
+  font-size: 34px;
+}
+
+.delete:hover {
+  z-index: 99999999;
+  cursor: pointer;
+  color: red;
 }
 
 .active {
-   opacity: 1;
-   pointer-events: all;
+  opacity: 1;
+  transition: 1s;
+  pointer-events: all;
+}
+
+@keyframes eff {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
 }
 
 .modalContent {
-   padding: 20px;
-   border-radius: 12px;
-   background-color: #222;
-   opacity: 0.9;
-   width: 540px;
-   height: 680px;
+  position: relative;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #222;
+  opacity: 0;
+  width: 540px;
+  height: auto;
+
+  animation: eff;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 }
 
-.movieInfo{
-   display: flex;
-   width: 100%;
-   margin-bottom: 25px;
+.modalContent:hover {
+  cursor: default;
 }
 
-.movieInfoNone{
-   display: flex;
-   width: 100%;
-   margin-bottom: 15px;
+iframe {
+  width: 500px;
+  height: 282px;
+  margin-bottom: 15px;
+}
+
+.movieInfo {
+  display: flex;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.movieInfoNone {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .img {
-   width: 140px;
-   height: 170px;
-   margin-right: 10px;
-   margin-left: 10px;
+  width: 140px;
+  height: 170px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .imgNone {
-   width: 120px;
-   height: 170px;
-   margin-right: 10px;
-   margin-left: 10px;
-   background-color: #222;
+  width: 120px;
+  height: 170px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: #222;
 }
 
 .info {
-   width: 100%;
-   max-width: 375px;
-   display: flex;
-   flex-direction: column;
-   color: white;
+  width: 100%;
+  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  color: white;
 }
 
 .infoNone {
-   width: 100%;
-   max-width: 375px;
-   display: flex;
-   flex-direction: column;
+  width: 100%;
+  max-width: 375px;
+  display: flex;
+  flex-direction: column;
 }
 
 .info h2 {
-   width: 100%;
-   color: white;
+  width: 100%;
+  color: white;
 }
 
 .info div {
-   width: 100%;
-   margin-bottom: 10px;
-   word-wrap: break-word;
-   color:white;
+  width: 100%;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  color: white;
 }
 
 .info div span {
-   font-weight: bold;
-   color:white;
+  font-weight: bold;
+  color: white;
 }
 
-.description{
-   color: white;
+.description {
+  color: white;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 540px) {
+  .modalContent {
+    width: 100%;
+  }
+
+  .delete {
+    top: 10px;
+    left: 10px;
+    display: block;
+  }
+
+  iframe {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  iframe {
+    height: 205px;
+  }
+}
+
+@media (max-width: 340px) {
+  iframe {
+    width: 100%;
+    height: 170px;
+  }
 }

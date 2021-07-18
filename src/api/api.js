@@ -20,5 +20,23 @@ export const movieAPI = {
             "X-API-KEY": API_KEY,
          }
       }) 
+   },
+   
+   getTrailer(filmId) {
+      return axios.get(`https://kinopoiskapiunofficial.tech/api/v2.1/films/${filmId}/videos`, {
+         headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": API_KEY,
+         }
+      }) 
+   },
+
+   SearchFilms(text) {
+      return axios.get(`https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${text}`, {
+         headers: {
+            "Content-Type": "application/json",
+            "X-API-KEY": API_KEY,
+         }
+      }) 
    }
    }

@@ -31,7 +31,28 @@
 
 .search {
    height: 100%;
-   width: 140px;
+   max-width: 300px;
+   width: 100%;
    margin-right: 30px;
+}
+
+@media (max-width: 520px) {
+   .container {
+      width: 100%;
+      align-items: center;
+      flex-direction: column;
+      justify-content: start;
+   }
+   .header {
+      height: auto;
+   }
+
+   .logoText{
+      display: none;
+   }
+
+   .search {
+      margin-right: 0;
+   }
 }
 

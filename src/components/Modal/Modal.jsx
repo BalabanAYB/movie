@@ -1,51 +1,86 @@
-import React from 'react'
-import style from './Modal.module.css'
+import React from "react";
+import Preloader from "../Preloader/Preloader";
+import style from "./Modal.module.css";
 
 const Modal = (props) => {
-   return <>
-   {props.nameRu 
-   ?<div onClick={() => {
-      props.setActive(false)
-      props.setModal(null) 
-   }} 
-   className={`${style.modal}
-    ${props.active ? style.active : ''}`}>
-<div onClick={e => e.stopPropagation()} className={style.modalContent}>
-<div className={style.movieInfo}>
-<img src={props.posterUrlPreview} className={style.img}/>
-<div className={style.info}>
-   <h2>{props.nameRu}</h2>
-   <div><i>{props.slogan}</i></div>
-   <div> <span>Жанр : </span>{props.genres ? props.genres.map(genre => genre.genre).join(): ''}</div>
-   <div><span>Год : </span>{props.year}</div>
-</div>
-</div>
-<div className={style.description}>
-{props.description}
-</div>
-</div>
-   </div>
-:<div onClick={() => {
-   props.setActive(false)
-   }} 
-   className={`${style.modal}
-   ${props.active ? style.active : ''}`}>
-   <div onClick={e => e.stopPropagation()} className={style.modalContent}>
-      <div className={style.movieInfoNone}>
-      <div className={style.imgNone} ></div>
-         <div className={style.infoNone}>
-         <h2></h2>
-         <div className={style.sloganNone}></div>
-         <div></div>
-         <div className={style.yearNone}></div>
-      </div>
-      </div>
-      <div className={style.descriptionNone}>
-      </div>
-   </div>
-</div>
-}
-   </>
-}
+  let genre = props.genres
+    ? props.genres.map((genre) => genre.genre).join(" ")
+    : "";
+  const [load, setLoad] = React.useState(true);
 
-export default Modal
+  React.useEffect(() => {
+    if (props.filmId && props.trailers) {
+      setLoad(false);
+    } else {
+      setLoad(true);
+    }
+  }, [props]);
+
+  return (
+    <>
+      {load ? (
+        <div
+          onClick={() => {
+            props.setActive(false);
+            props.setModal(null);
+          }}
+          className={`${style.modal}`}
+        >
+          <Preloader />
+        </div>
+      ) : (
+        <div
+          onClick={() => {
+            props.setActive(false);
+            props.setModal(null);
+          }}
+          className={`${style.modal}
+    ${!load ? style.active : ""}`}
+        >
+          <div
+            onclick={() => {
+              props.setActive(false);
+              props.setModal(null);
+            }}
+            className={style.delete}
+          >
+            X
+          </div>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={style.modalContent}
+          >
+            <div className={style.movieInfo}>
+              <img src={props.posterUrlPreview} className={style.img} />
+              <div className={style.info}>
+                <h2>{props.nameRu}</h2>
+                <div>
+                  <i>{props.slogan}</i>
+                </div>
+                <div>
+                  {" "}
+                  <span>Жанр : </span>
+                  {genre}
+                </div>
+                <div>
+                  <span>Год : </span>
+                  {props.year}
+                </div>
+              </div>
+            </div>
+            <div className={style.description}>{props.description}</div>
+            <iframe
+              src={props.trailers[0]}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              seamless
+            ></iframe>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+export default Modal;
